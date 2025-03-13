@@ -5026,11 +5026,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\52529661847\\Desktop\\Event-Plus\\Event_Plus.csproj",
+      "projectUniqueName": "C:\\Users\\52529661847\\Desktop\\Event_Plus\\Event_Plus.csproj",
       "projectName": "Event_Plus",
-      "projectPath": "C:\\Users\\52529661847\\Desktop\\Event-Plus\\Event_Plus.csproj",
+      "projectPath": "C:\\Users\\52529661847\\Desktop\\Event_Plus\\Event_Plus.csproj",
       "packagesPath": "C:\\Users\\52529661847\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\52529661847\\Desktop\\Event-Plus\\obj\\",
+      "outputPath": "C:\\Users\\52529661847\\Desktop\\Event_Plus\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

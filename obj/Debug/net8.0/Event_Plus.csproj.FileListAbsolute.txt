@@ -174,3 +174,4 @@ C:\Users\52529661847\Desktop\Event_Plus\obj\Debug\net8.0\refint\Event_Plus.dll
 C:\Users\52529661847\Desktop\Event_Plus\obj\Debug\net8.0\Event_Plus.pdb
 C:\Users\52529661847\Desktop\Event_Plus\obj\Debug\net8.0\Event_Plus.genruntimeconfig.cache
 C:\Users\52529661847\Desktop\Event_Plus\obj\Debug\net8.0\ref\Event_Plus.dll
+C:\Users\52529661847\Desktop\Event_Plus\bin\Debug\net8.0\Newtonsoft.Json.dll

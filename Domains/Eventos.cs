@@ -32,12 +32,13 @@ namespace Event_Plus.Domains
         /// <summary>
         /// Refêrencia da Tabela Instituicao
         /// </summary>
-        public Guid IdInstituicoes { get; set; }
+        public Guid IdInstituicao { get; set; }
 
         [ForeignKey("IdInstituicao")]
-        public Instituicoes? Instituicao { get; set; }
+        public Instituicoes? Instituicoes { get; set; }
 
-        public PresencasEventos? PresencasEventos { get; set; }
+        public Presenca? Presenca { get; set; }
+
 
     }
 }
