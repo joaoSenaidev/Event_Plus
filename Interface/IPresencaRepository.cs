@@ -9,7 +9,7 @@ namespace Event_Plus.Interface
         void Atualizar(Guid id, Presenca presenca);
         List<Presenca> Listar();
         Presenca BuscarPorId(Guid id);
-        List<Presenca> ListarMinhas(Guid id);
+        List<Presenca> ListarMinhasPresencas(Guid id);
 
 
     }

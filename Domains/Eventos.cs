@@ -39,6 +39,6 @@ namespace Event_Plus.Domains
 
         public Presenca? Presenca { get; set; }
 
-
     }
+
 }
