@@ -1,0 +1,81 @@
+[
+  {
+    "ContainingType": "Event_Plus.Controller.TipoEventosController",
+    "Method": "Get",
+    "RelativePath": "api/TipoEventos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Event_Plus.Controller.TipoEventosController",
+    "Method": "Post",
+    "RelativePath": "api/TipoEventos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "novoTipoEvento",
+        "Type": "Event_Plus.Domains.TipoEventos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Event_Plus.Controller.TipoEventosController",
+    "Method": "Delete",
+    "RelativePath": "api/TipoEventos/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Event_Plus.Controller.TipoEventosController",
+    "Method": "Put",
+    "RelativePath": "api/TipoEventos/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipoEvento",
+        "Type": "Event_Plus.Domains.TipoEventos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Event_Plus.Controller.TipoEventosController",
+    "Method": "GetById",
+    "RelativePath": "api/TipoEventos/BuscarPorId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
