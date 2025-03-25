@@ -26,6 +26,8 @@ namespace Event_Plus.Repositoreis
                     tipoEventosBuscado.TituloTipoEvento = tipoEvento.TituloTipoEvento;
                 }
 
+                _context.TipoEventos.Update(tipoEventosBuscado!);
+
                 _context.SaveChanges();
 
             }
@@ -40,9 +42,9 @@ namespace Event_Plus.Repositoreis
         {
             try
             {
-                TipoEventos tipoEventosBuscado = _context.TipoEventos.Find(id)!;
+                return _context.TipoEventos.Find(id)!;
 
-                return tipoEventosBuscado;
+                
             }
             catch (Exception)
             {
@@ -55,7 +57,11 @@ namespace Event_Plus.Repositoreis
         {
             try
             {
+                tipoEvento.IdTipoEvento = Guid.NewGuid();
+
                 _context.TipoEventos.Add(tipoEvento);
+
+                _context.SaveChanges();
 
                 _context.SaveChanges();
             }
@@ -89,9 +95,9 @@ namespace Event_Plus.Repositoreis
         {
             try
             {
-                List<TipoEventos> listaTipoEventos = _context.TipoEventos.ToList();
+                return _context.TipoEventos.OrderBy(tp => tp.TituloTipoEvento).ToList();
 
-                return listaTipoEventos;
+
 
             }
             catch (Exception)

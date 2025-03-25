@@ -18,9 +18,27 @@ namespace Event_Plus.Repositoreis
         {
             try
             {
-                ComentarioEventos comentarioEventosBuscados = _context.ComentarioEventos.Find(idUsuario, IdEvento)!;
+                return _context.ComentarioEventos.Select(c => new ComentarioEventos
+                    {
+                        IdComentarioEvento = c.IdComentarioEvento,
+                        Comentario = c.Comentario,
+                        Exibe = c.Exibe,
+                        IdUsuario = c.IdUsuario,
+                        IdEvento = c.IdEvento,
 
-                return comentarioEventosBuscados;
+                        Usuarios = new Usuarios
+                        {
+                            Nome = c.Usuarios!.Nome
+                        },
+
+                        Eventos = new Eventos 
+                        {
+                            NomeEvento = c.Eventos!.NomeEvento,
+                        }
+
+                }).FirstOrDefault(c => c.IdUsuario == idUsuario && c.IdEvento == IdEvento)!;
+                       
+
             }
             catch (Exception)
             {
@@ -29,11 +47,13 @@ namespace Event_Plus.Repositoreis
             }
         }
 
-        public void Cadastrar(ComentarioEventos novoComentarioEventos)
+        public void Cadastrar(ComentarioEventos comentarioEventos)
         {
             try
             {
-                _context.ComentarioEventos.Add(novoComentarioEventos);
+                comentarioEventos.IdComentarioEvento = Guid.NewGuid();
+
+                _context.ComentarioEventos.Add(comentarioEventos);
 
                 _context.SaveChanges();
             }
@@ -68,15 +88,68 @@ namespace Event_Plus.Repositoreis
         {
             try
             {
-                List<ComentarioEventos> listaComentarioEventos = _context.ComentarioEventos.Include(g => g.Comentario).ToList();
+                return _context.ComentarioEventos.Select(c => new ComentarioEventos
+                {
+                    IdComentarioEvento = c.IdComentarioEvento,
+                    Comentario = c.Comentario,
+                    Exibe = c.Exibe,
+                    IdUsuario = c.IdUsuario,
+                    IdEvento = c.IdEvento,
 
-                return listaComentarioEventos;
+                    Usuarios = new Usuarios
+                    {
+                        Nome = c.Usuarios!.Nome
+                    },
+
+                    Eventos = new Eventos
+                    {
+                        NomeEvento = c.Eventos!.NomeEvento,
+                    }
+
+
+
+
+                }).Where(c => c.IdEvento == id).ToList();
+
+
             }
             catch (Exception)
             {
 
                 throw;
             }
+        }
+
+        public List<ComentarioEventos> ListarSomenteExibe(Guid id) 
+        {
+            try
+            {
+                return _context.ComentarioEventos.Select(c => new ComentarioEventos
+                {
+                    IdComentarioEvento = c.IdComentarioEvento,
+                    Comentario = c.Comentario,
+                    Exibe = c.Exibe,
+                    IdUsuario = c.IdUsuario,
+                    IdEvento = c.IdEvento,
+
+                    Usuarios = new Usuarios 
+                    {
+                        Nome = c.Usuarios!.Nome
+                    },
+
+                    Eventos = new Eventos
+                    {
+                        NomeEvento = c.Eventos!.NomeEvento,
+                    }
+
+                }).Where(c => c.Exibe == true && c.IdEvento == id).ToList();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

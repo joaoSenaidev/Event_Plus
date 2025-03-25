@@ -26,18 +26,6 @@ namespace Event_Plus.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Presenca",
-                columns: table => new
-                {
-                    IdPresenca = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Situacao = table.Column<bool>(type: "BIT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Presenca", x => x.IdPresenca);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TipoEventos",
                 columns: table => new
                 {
@@ -70,8 +58,7 @@ namespace Event_Plus.Migrations
                     DataEvento = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Descricao = table.Column<string>(type: "TEXT", nullable: false),
                     IdTipoEvento = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdInstituicao = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PresencaIdPresenca = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    IdInstituicao = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,11 +69,6 @@ namespace Event_Plus.Migrations
                         principalTable: "Instituicoes",
                         principalColumn: "IdInstituicao",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Eventos_Presenca_PresencaIdPresenca",
-                        column: x => x.PresencaIdPresenca,
-                        principalTable: "Presenca",
-                        principalColumn: "IdPresenca");
                     table.ForeignKey(
                         name: "FK_Eventos_TipoEventos_IdTipoEvento",
                         column: x => x.IdTipoEvento,
@@ -143,6 +125,32 @@ namespace Event_Plus.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Presenca",
+                columns: table => new
+                {
+                    IdPresenca = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Situacao = table.Column<bool>(type: "BIT", nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdEvento = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Presenca", x => x.IdPresenca);
+                    table.ForeignKey(
+                        name: "FK_Presenca_Eventos_IdEvento",
+                        column: x => x.IdEvento,
+                        principalTable: "Eventos",
+                        principalColumn: "IdEvento",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Presenca_Usuarios_IdUsuario",
+                        column: x => x.IdUsuario,
+                        principalTable: "Usuarios",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ComentarioEventos_IdEvento",
                 table: "ComentarioEventos",
@@ -164,15 +172,21 @@ namespace Event_Plus.Migrations
                 column: "IdTipoEvento");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Eventos_PresencaIdPresenca",
-                table: "Eventos",
-                column: "PresencaIdPresenca");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Instituicoes_CNPJ",
                 table: "Instituicoes",
                 column: "CNPJ",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Presenca_IdEvento",
+                table: "Presenca",
+                column: "IdEvento",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Presenca_IdUsuario",
+                table: "Presenca",
+                column: "IdUsuario");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_Email",
@@ -193,6 +207,9 @@ namespace Event_Plus.Migrations
                 name: "ComentarioEventos");
 
             migrationBuilder.DropTable(
+                name: "Presenca");
+
+            migrationBuilder.DropTable(
                 name: "Eventos");
 
             migrationBuilder.DropTable(
@@ -200,9 +217,6 @@ namespace Event_Plus.Migrations
 
             migrationBuilder.DropTable(
                 name: "Instituicoes");
-
-            migrationBuilder.DropTable(
-                name: "Presenca");
 
             migrationBuilder.DropTable(
                 name: "TipoEventos");

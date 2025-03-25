@@ -39,7 +39,7 @@ namespace Event_Plus.Controller
         }
 
         [HttpPost]
-        public IActionResult Post(TipoUsuarios novoTipoUsuario)
+       public IActionResult Post(TipoUsuarios novoTipoUsuario)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Event_Plus.Controller
             try
             {
                 _tipoUsuariosRepository.Atualizar(id, tipoUsuario);
-                return Ok();
+                return NoContent    ();
             }
             catch (Exception e)
             {

@@ -22,6 +22,7 @@ namespace Event_Plus.Repositoreis
                 {
                     tipoUsuarioBuscado.TituloTipoUsuario = tipoUsuario.TituloTipoUsuario;
                 }
+                _context.TipoUsuario.Update(tipoUsuarioBuscado!);
 
                 _context.SaveChanges();
             }
@@ -36,9 +37,9 @@ namespace Event_Plus.Repositoreis
         {
             try
             {
-                TipoUsuarios tipoUsuarioBuscado = _context.TipoUsuario.Find(id)!;
+                return _context.TipoUsuario.Find(id)!;
+                
 
-                return tipoUsuarioBuscado;
             }
             catch (Exception)
             {
@@ -47,11 +48,13 @@ namespace Event_Plus.Repositoreis
             }
         }
 
-        public void Cadastrar(TipoUsuarios novotipoUsuario)
+        public void Cadastrar(TipoUsuarios tipoUsuario)
         {
             try
             {
-                _context.TipoUsuario.Add(novotipoUsuario);
+                tipoUsuario.IdTipoUsuario = Guid.NewGuid();
+
+                _context.TipoUsuario.Add(tipoUsuario);
 
                 _context.SaveChanges();
             }
@@ -85,9 +88,9 @@ namespace Event_Plus.Repositoreis
         {
             try
             {
-                List<TipoUsuarios> listaTipoUsuario = _context.TipoUsuario.ToList()!;
+                return _context.TipoUsuario.ToList();
+                
 
-                return listaTipoUsuario;
             }
             catch (Exception)
             {

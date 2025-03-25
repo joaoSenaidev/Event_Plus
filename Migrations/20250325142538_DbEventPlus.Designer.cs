@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_Plus.Migrations
 {
     [DbContext(typeof(EventPlus_Context))]
-    [Migration("20250313170407_DbEventPlus")]
+    [Migration("20250325142538_DbEventPlus")]
     partial class DbEventPlus
     {
         /// <inheritdoc />
@@ -76,16 +76,11 @@ namespace Event_Plus.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(50)");
 
-                    b.Property<Guid?>("PresencaIdPresenca")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("IdEvento");
 
                     b.HasIndex("IdInstituicao");
 
                     b.HasIndex("IdTipoEvento");
-
-                    b.HasIndex("PresencaIdPresenca");
 
                     b.ToTable("Eventos");
                 });
@@ -122,10 +117,21 @@ namespace Event_Plus.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("IdEvento")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Situacao")
                         .HasColumnType("BIT");
 
                     b.HasKey("IdPresenca");
+
+                    b.HasIndex("IdEvento")
+                        .IsUnique();
+
+                    b.HasIndex("IdUsuario");
 
                     b.ToTable("Presenca");
                 });
@@ -225,15 +231,28 @@ namespace Event_Plus.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Event_Plus.Domains.Presenca", "Presenca")
-                        .WithMany()
-                        .HasForeignKey("PresencaIdPresenca");
-
                     b.Navigation("Instituicoes");
 
-                    b.Navigation("Presenca");
-
                     b.Navigation("TipoEventos");
+                });
+
+            modelBuilder.Entity("Event_Plus.Domains.Presenca", b =>
+                {
+                    b.HasOne("Event_Plus.Domains.Eventos", "Eventos")
+                        .WithOne("Presenca")
+                        .HasForeignKey("Event_Plus.Domains.Presenca", "IdEvento")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Event_Plus.Domains.Usuarios", "Usuarios")
+                        .WithMany()
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Eventos");
+
+                    b.Navigation("Usuarios");
                 });
 
             modelBuilder.Entity("Event_Plus.Domains.Usuarios", b =>
@@ -245,6 +264,11 @@ namespace Event_Plus.Migrations
                         .IsRequired();
 
                     b.Navigation("TipoUsuario");
+                });
+
+            modelBuilder.Entity("Event_Plus.Domains.Eventos", b =>
+                {
+                    b.Navigation("Presenca");
                 });
 #pragma warning restore 612, 618
         }

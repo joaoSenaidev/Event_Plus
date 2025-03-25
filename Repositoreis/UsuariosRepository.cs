@@ -15,20 +15,25 @@ namespace Event_Plus.Repositoreis
 
         public Usuarios BuscarPorEmailSenha(string email, string senha)
         {
-            throw new NotImplementedException();
-        }
-
-        public Usuarios BuscarPorId(Guid id)
-        {
             try
             {
-                Usuarios usuarioBuscado = _context.Usuarios.Find(id)!;
-
-                if (usuarioBuscado != null)
+                Usuarios usuarioBuscado = _context.Usuarios.Select(u => new Usuarios
                 {
-                    return usuarioBuscado;
-                }
+                    IdUsuario = u.IdUsuario,
+                    Nome = u.Nome,
+                    Email = u.Email,
+                    Senha = u.Senha,
+
+                    TipoUsuario = new TipoUsuarios
+                    {
+                        IdTipoUsuario = u.IdTipoUsuario,
+                        TituloTipoUsuario = u.TipoUsuario!.TituloTipoUsuario
+                    }
+
+                }).FirstOrDefault(u => u.Email == email && u.Senha == senha)!;
+
                 return null!;
+
             }
             catch (Exception)
             {
@@ -37,11 +42,46 @@ namespace Event_Plus.Repositoreis
             }
         }
 
-        public void Cadastrar(Usuarios novousuario)
+        public Usuarios BuscarPorId(Guid id)
         {
             try
             {
-                _context.Usuarios.Add(novousuario);
+                Usuarios usuarioBuscado = _context.Usuarios.Select(u => new Usuarios
+                {
+                    IdUsuario = u.IdUsuario,
+                    Nome = u.Nome,
+                    Email = u.Email,
+                    Senha = u.Senha,
+
+                    TipoUsuario = new TipoUsuarios
+                    {
+                        IdTipoUsuario = u.TipoUsuario!.IdTipoUsuario,
+                        TituloTipoUsuario = u.TipoUsuario!.TituloTipoUsuario
+                    }
+
+                }).FirstOrDefault(u => u.IdTipoUsuario == id)!;
+
+                if (usuarioBuscado != null)
+                {
+                    return usuarioBuscado;
+                }
+                return null!;
+               
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void Cadastrar(Usuarios usuario)
+        {
+            try
+            {
+                usuario.IdUsuario = Guid.NewGuid();
+
+                _context.Usuarios.Add(usuario);
 
                 _context.SaveChanges();
             }
