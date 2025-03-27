@@ -27,9 +27,8 @@ namespace Event_Plus.Controller
         {
             try
             {
-                List<TipoEventos> tipoEventos = _tipoEventosRepository.Listar();
 
-                return Ok(tipoEventos);
+                return Ok(_tipoEventosRepository.Listar());
             }
             catch (Exception e)
             {
@@ -49,7 +48,7 @@ namespace Event_Plus.Controller
             {
                 _tipoEventosRepository.Cadastrar(novoTipoEvento);
 
-                return Created();
+                return StatusCode(201, novoTipoEvento);
             }
             catch (Exception e)
             {
@@ -90,7 +89,7 @@ namespace Event_Plus.Controller
             {
                 _tipoEventosRepository.Atualizar(id, tipoEvento);
 
-                return NoContent();
+                return StatusCode(204, tipoEvento);
             }
             catch (Exception e)
             {
@@ -103,13 +102,13 @@ namespace Event_Plus.Controller
         /// </summary>
         /// <param name="id">Id do TipoEvento</param>
         /// <returns>Tipo Evento Buscado</returns>
-        [HttpGet("BuscarPorId/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
             try
             {
-                TipoEventos tipoEventosBuscado = _tipoEventosRepository.BuscarPorId(id);
-                return Ok(tipoEventosBuscado);
+                
+                return Ok(_tipoEventosRepository.BuscarPorId(id));
             }
             catch (Exception e)
             {
